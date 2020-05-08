@@ -2,9 +2,9 @@
 
 set -ex
 
-: ${ORGDIR:="/src/github.com/TykTechnologies"}
+: ${ORGDIR:="/users/ross/repos"}
 : ${SIGNKEY:="12B5D62C28F57592D1575BD51ED14C59E37DAC20"}
-: ${BUILDPKGS:="1"}
+: ${BUILDPKGS:="0"}
 : ${SIGNPKGS:="1"}
 TYK_IB_SRC_DIR=$ORGDIR/tyk-sync
 BUILDTOOLSDIR=$TYK_IB_SRC_DIR/build_tools
@@ -36,7 +36,7 @@ mkdir -p $BUILD_DIR
 
 # ---- APP BUILD START ---
 echo "Building application"
-gox -osarch="linux/arm64 linux/amd64 linux/386"
+gox -osarch="darwin/amd64"
 # ---- APP BUILD END ---
 
 # ---- CREATE TARGET FOLDER ---
@@ -50,6 +50,9 @@ echo "Removing old builds"
 rm -f *.deb
 rm -f *.rpm
 rm -f *.tar.gz
+
+rm -rf "$RELEASE_DIR"
+exit
 
 echo "LINUX"
 FPMCOMMON=(
